@@ -1,0 +1,81 @@
+/* Ensure proper sizing and scrolling behavior */
+.view-posts-container {
+   
+  
+  }
+  
+  /* Adjust spacing */
+  .posts-list {
+    margin: 20px 0;
+  }
+  
+  /* Ensure proper spacing between individual posts */
+  .post-item {
+    margin-bottom: 20px;
+  }
+  
+  /* ViewPosts.css */
+
+  
+  
+  
+  .posts-list {
+    width: 50%; /* Adjust the width of the posts list */
+  }
+  
+  .post-item {
+    margin-bottom: 20px;
+  }
+  
+  .add-post-button {
+    width: 5%;
+    height: 25%; /* Adjust the width of the button */
+    margin-left: 1300px; /* Add some margin between the button and the posts list */
+    
+  }
+  
+  .action-button {
+    margin-right: 10px; /* Add some margin between action buttons */
+  }
+  
+ 
+  
+ 
+  
+  
+  
+  /* .generate-report-button {
+    margin-left: 1100px; 
+    
+    width: 5%;
+    height: 25%; 
+  } */
+  
+  .button-container {
+    display: flex; /* Use flexbox to align items */
+    margin-left: 700px;
+    gap: 5px;
+  }
+  
+  .add-post-button,
+  /* .generate-report-button {
+    width: 40%;
+    height: 25%;
+  } */
+  
+  .add-post-button {
+    width: 30%; /* Adjust the width of the button */
+    margin-left: 130px; /* Adjust the margin between the button and the posts list */
+  }
+  
+  .generate-report-button {
+    
+    margin-left: 20px;
+    width: 40%; /* Adjust the width of the button */ 
+  }
+  
+  .search-bar {
+    width: 30%; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    
+}

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "sweetalert2": "^11.10.8"
+  }
+}

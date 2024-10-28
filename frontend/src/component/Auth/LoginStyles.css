@@ -1,0 +1,18 @@
+/* LoginStyles.css */
+/* LoginStyles.css */
+
+.login-container {
+    min-height: calc(100vh - 150px); /* Adjust based on footer height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .login-form {
+    width: 300px; /* Adjust the width of the login form as needed */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
