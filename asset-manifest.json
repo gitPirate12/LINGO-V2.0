@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/LINGO-V2.0/static/css/main.33a7c8fc.css",
+    "main.js": "/LINGO-V2.0/static/js/main.eb77e16d.js",
+    "index.html": "/LINGO-V2.0/index.html",
+    "main.33a7c8fc.css.map": "/LINGO-V2.0/static/css/main.33a7c8fc.css.map",
+    "main.eb77e16d.js.map": "/LINGO-V2.0/static/js/main.eb77e16d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.33a7c8fc.css",
+    "static/js/main.eb77e16d.js"
+  ]
+}
