@@ -1,74 +1,102 @@
-/* Navbar.css */
+/* navbar.css */
 
-.navbar {
-  background-color: #1F3D98;
-  height: 100px;
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    width: 100vw; /* Set to full viewport width */
+    border-bottom: 1px solid #e5e7eb;
+    box-sizing: border-box; /* Ensure padding is included in width */
 }
 
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #1C160C;
+    text-decoration: none;
 }
 
-.navbar-logo img {
-  margin-bottom: 5px;
-  width: 75px;
-  height: 70px;
+.logo h2 {
+    color: #1C160C;
+    font-size: 1.125rem;
+    font-weight: bold;
+    letter-spacing: -0.015em;
 }
 
-.navbar-title {
-  color: #fff;
-  font-size: 16px;
+.nav {
+    margin-left: auto;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
 
-.navbar-nav {
-  margin: 20px;
-  gap: 120px;
+.nav ul {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center; /* Center items vertically */
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #292524;
+    height: 80px; /* Set a consistent height */
+    white-space: nowrap;
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
 }
 
-.navbar-nav .nav-link {
-  color: #fff; /* Keep text color as white */
-  font-weight: bold;
-  position: relative;
+.nav a {
+    text-decoration: none;
+    color: #292524;
 }
 
-.navbar-nav .nav-link:hover {
-  color: #fff; /* Keep text color as white */
+.icon-button {
+    border-radius: 50%; /* Maintain a circular button shape */
+    width: 40px; /* Width for the icon button */
+    height: 40px; /* Height for the icon button */
+    padding: 0; /* No padding for consistency */
+    transition: background-color 0.3s; /* Smooth transition */
+    display: flex; /* Flex for alignment */
+    align-items: center; /* Center icon vertically */
+    justify-content: center; /* Center icon horizontally */
 }
 
-.navbar-nav .nav-link.active::after { /* Styles for active link */
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
-  
+.icon-button:hover {
+    background-color: rgba(245, 240, 229, 1); /* Background color on hover */
 }
 
-.form-control {
-  width: 250px;
+.icon-button .MuiSvgIcon-root {
+    color: #292524; /* Icon color */
+    font-size: 1.5rem; /* Adjust size as needed */
 }
 
-.btn-outline-success:hover {
-  background-color: #fff;
-  color: #1F3D98;
+.signup-button,
+.login-button {
+    border-radius: 20px; /* Rounded corners */
+    display: flex; /* Flexbox for alignment */
+    width: 84px; /* Fixed width */
+    height: 40px; /* Fixed height to match the ul */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    padding: 0 16px; /* Padding for content */
+    color: #fff; /* Text color */
+    text-align: center; /* Center text */
+    font: 700 14px "Plus Jakarta Sans", -apple-system, Roboto, Helvetica, sans-serif; /* Font styling */
+    overflow: hidden; /* Hide overflow content */
 }
 
-/* Styling for profile dropdown */
-.navbar-profile {
-  display: flex;
-  align-items: center;
+.signup-button {
+    background-color: rgba(0, 153, 99, 1); /* Background color */
 }
 
-.profile-image {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.login-button {
+    background-color: rgba(245, 240, 229, 1); /* Background color */
+    color: rgba(28, 23, 13, 1); /* Text color */
 }
 
-.dropdown-menu {
-  min-width: auto;
+.signup-text{
+    color: white;
 }

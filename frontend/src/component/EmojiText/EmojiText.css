@@ -9,7 +9,7 @@
 
 .emoji-header {
   padding: 20px;
-  background-color: #007bff;
+  background-color: #007bff; /* You can change this if needed */
   color: #ffffff;
   font-size: 24px;
   text-align: center;
@@ -33,7 +33,7 @@
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #019863; /* Change to your desired green color */
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -43,7 +43,7 @@
 }
 
 .search-button:hover {
-  background-color: #0056b3;
+  background-color: #017a52; /* Darker shade of green for hover effect */
 }
 
 .meanings-container {
@@ -65,4 +65,3 @@
 .meaning-content {
   font-size: 16px;
 }
-

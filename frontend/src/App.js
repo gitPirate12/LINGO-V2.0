@@ -1,8 +1,9 @@
 //Navigation bar
-import Navbar from './component/Navbar/Navbar';
+import Navbar from './component/Navbar/navbar';
 //Footer
 import Footer from './component/Footer/Footer';
-import './component/Footer/FooterApp.css';
+
+
 
 
 // emoji to text translater
@@ -24,11 +25,13 @@ import ViewProfile from './component/Auth/ViewProfile';
 import EditProfile from './component/Auth/EditProfile';
 
 
+
 function App() {
   return (
     <Router>
       <div className='App'>
-        { <Navbar /> }
+        { <Navbar />
+        }
         <Routes>
           {/* {emoji to text translater} */}
           {/* Commenting out the route for AllEmojiText */}
@@ -36,7 +39,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/add' element={<Addemoji />} />
-          <Route path='emojiText' element={<EmojiText />} />
+          <Route path='/emojiText' element={<EmojiText />} />
           <Route path='/viewposts' element={<ViewPosts />} />
           <Route path='/addpost' element={<AddPost />} />
           <Route path='/editpost/:postId' element={<EditPost />} />
@@ -49,6 +52,7 @@ function App() {
          
         </Routes>
         <Footer/>
+
       </div>
       
 

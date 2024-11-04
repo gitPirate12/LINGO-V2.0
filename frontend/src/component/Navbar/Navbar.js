@@ -1,100 +1,101 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import image_navlogo from "./NavImage/logo.jpg";
-import image1_userlogo from "./NavImage/user.png";
-import "./Navbar.css";
+import { Link } from 'react-router-dom';
 import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { AccountCircle } from "@mui/icons-material";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import './navbar.css';
 
-function Navbar() {
+const Navbar = () => {
   const { logout } = useLogout();
-  const [activeLink, setActiveLink] = useState(""); // State to track active link
   const { user } = useAuthContext();
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  // Function to handle link click
-  const handleLinkClick = (linkName) => {
-    setActiveLink(linkName === activeLink ? "" : linkName);
+  const handleIconClick = (event) => {
+    setAnchorEl(event.currentTarget); // Open dropdown
   };
 
-  // Function to handle logout
+  const handleClose = () => {
+    setAnchorEl(null); // Close dropdown
+  };
+
   const handleLogout = () => {
     logout();
+    handleClose(); // Close dropdown on logout
   };
 
   return (
-    <nav className="navbar navbar-expand-lg">
-      <div className="container-fluid">
-        <Link to="/" className="navbar-brand">
-          <div className="navbar-logo">
-            <img src={image_navlogo} alt="App logo" />
-            <div className="navbar-title"><b>LINGO Translator</b></div>
-          </div>
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-            {/* Your navigation links */}
-            <li className={`nav-item ${activeLink === 'emoji' ? 'active' : ''}`}>
-              <Link
-                className="nav-link"
-                onClick={() => handleLinkClick('emoji')}
-                to="/emojiText"
-              >
-                Emoji to Text
-              </Link>
-            </li>
-            <li className={`nav-item ${activeLink === 'discussion' ? 'active' : ''}`}>
-              <Link
-                className="nav-link"
-                onClick={() => handleLinkClick('discussion')}
-                to="/viewposts"
-              >
-                Discussion Forum
-              </Link>
-            </li>
-          </ul>
-          <div className="navbar-profile">
-            <div className="dropdown">
-              <button
-                className="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img src={image1_userlogo} alt="User photo" className="profile-image" />
-              </button>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {user && (
-                  <div>
-                    <li><Link className="dropdown-item" to="/viewprofile">View User Profile</Link></li>
-                    <li><button className="dropdown-item" onClick={handleLogout}>Log Out</button></li>
-                  </div>
-                )}
-                {!user && (
-                  <div>
-                    <li><Link className="dropdown-item" to="/login">Log In</Link></li>
-                    <li><Link className="dropdown-item" to="/signup">Sign Up</Link></li>
-                  </div>
-                )}
-
-              </ul>
-            </div>
-          </div>
+    <header className="header">
+      <Link to="/" className="logo">
+        <div style={{ width: '40px', height: '40px' }}>
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"
+              fill="currentColor"
+            />
+          </svg>
         </div>
+        <h2>LINGO Translator</h2>
+      </Link>
+
+      <div style={{ marginLeft: 'auto' }}>
+        <nav className="nav">
+          <ul>
+            <Link to="/emojiText">Emoji to Text</Link>
+            <Link to="/viewposts">Discussion Forum</Link>
+          </ul>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Link to="/signup" className="signup-button">
+              <span className="signup-text">Sign Up</span>
+            </Link>
+
+            <Link to="/login" className="login-button">
+              <span className="login-text">Log In</span>
+            </Link>
+
+            {/* Icon Button with Dropdown */}
+            <IconButton className="icon-button" onClick={handleIconClick}>
+              <AccountCircle sx={{ fontSize: '2rem', color: '#292524' }} />
+            </IconButton>
+
+            {/* Dropdown Menu */}
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              {user ? (
+                <>
+                  <MenuItem onClick={handleClose}>
+                    <Link to="/viewprofile" className="dropdown-item">View User Profile</Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout} className="dropdown-item">Log Out</MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem onClick={handleClose}>
+                    <Link to="/login" className="dropdown-item">Log In</Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Link to="/signup" className="dropdown-item">Sign Up</Link>
+                  </MenuItem>
+                </>
+              )}
+            </Menu>
+          </div>
+        </nav>
       </div>
-    </nav>
+    </header>
   );
-}
+};
 
 export default Navbar;

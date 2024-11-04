@@ -36,10 +36,10 @@ function DeleteReply({ replyId }) {
   };
 
   return (
-    <IconButton onClick={handleDelete} color="primary">
-      {/* Use Delete icon from Material-UI */}
-      <Delete />
-    </IconButton>
+    <IconButton onClick={handleDelete} sx={{ color: '#A1824A ' }}>
+  {/* Use Delete icon from Material-UI */}
+  <Delete />
+</IconButton>
   );
 }
 

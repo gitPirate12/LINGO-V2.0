@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Button, TextField, Typography, Box, List, ListItem, ListItemText, Divider, IconButton, Avatar } from '@mui/material';
-import { ThumbUp, ThumbDown, Edit, AddComment, ArrowDropUp, ArrowDropDown } from '@mui/icons-material';
+import { Button, TextField, Typography, Box, List, ListItem, ListItemText, Divider, IconButton, Avatar, InputAdornment ,Menu, MenuItem } from '@mui/material';
+import { AddComment, ArrowDropUp, ArrowDropDown , ThumbUpOutlined, ThumbDownOffAltOutlined } from '@mui/icons-material';
 import DeletePost from './DeletePost';
 import DeleteReply from './DeleteReply';
 import EditReply from './EditReply';
 import GenerateReport from './GenerateReport'; // Import the GenerateReport component
 import { useLogin } from '../../hooks/useLogin'; // Import the useLogin hook
 import HandleVote from './HandleVote';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 
 function ViewPosts() {
   const [posts, setPosts] = useState([]);
@@ -18,6 +20,42 @@ function ViewPosts() {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const { isLoading, error: loginError } = useLogin();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget); // Set the anchor element to the button
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null); // Close the menu
+  };
+
+  const handleEdit = () => {
+    // Add your edit functionality here
+    handleClose(); // Close the menu after action
+  };
+
+  const handleDelete = async (postId) => {
+    const userData = localStorage.getItem('user');
+    const user = JSON.parse(userData);
+    if (!user) return;
+  
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+  
+    try {
+      await axios.delete(`http://localhost:3040/api/posts/${postId}`, config);
+      window.location.reload();
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
+  };
+  
+
 
   const fetchPosts = async () => {
     try {
@@ -60,6 +98,8 @@ function ViewPosts() {
     setEditReplyId(replyId);
   };
 
+  
+
   const handleVoteReply = async (replyId, voteType) => {
     try {
       const token = JSON.parse(localStorage.getItem('user'))?.token;
@@ -100,27 +140,101 @@ function ViewPosts() {
   }
 
   return (
-    <Box className="view-posts-container" style={{ minHeight: '100vh' }}>
-      <Typography variant="h3" component="div" gutterBottom>
-        Discussion forum
+    <Box className="view-posts-container" sx={{ minHeight: '100vh', padding: '20px', backgroundColor: '' }}>
+      <Typography variant="h3" component="div" gutterBottom sx={{ color: 'black' }}>
+        Discussion Forum
       </Typography>
-      <Box className="button-container" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+      <Box className="button-container" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <GenerateReport />
-        <Button variant="contained" className="add-post-button" onClick={() => navigate('/addpost')}>
-          Add Post
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate('/addpost')}
+          sx={{
+            borderRadius: '20px',
+            backgroundColor: 'rgba(0, 153, 99, 1)', // Normal background color
+            display: 'flex',
+            minWidth: '84px',
+            minHeight: '40px',
+            maxWidth: '480px',
+            alignItems: 'center',
+            overflow: 'hidden',
+            color: '#fff',
+            textAlign: 'center',
+            justifyContent: 'center',
+            padding: '0 16px',
+            font: '700 14px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif',
+            textTransform: 'none',
+            '&:hover': {
+              backgroundColor: 'rgba(0, 153, 99, 1)', // Keep the background color the same on hover
+              boxShadow: 'none', // Remove any box shadow if applicable
+            },
+          }}
+        >
+          <span style={{ alignSelf: 'stretch', width: '80px', overflow: 'hidden', margin: 'auto 0' }}>
+            Add Post
+          </span>
         </Button>
-        <TextField
-          className="search-bar"
-          type="text"
-          placeholder="Search..."
-          value={searchQuery}
-          onChange={(e) => handleSearch(e.target.value)}
-        />
+
+
+        <section className="search-container" style={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
+          <div className="search-wrapper" style={{ flexGrow: 1 }}>
+            <form className="search-input-container" role="search" style={{ display: 'flex', alignItems: 'center' }}>
+              <TextField
+                id="search-input"
+                className="search-input"
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <img
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/c125b7b8ff0836408a9f63056f9422f6309bbe4834f77d62de8e703025c96268?placeholderIfAbsent=true&apiKey=32eae747db0848928735b2b1f6ffe638"
+                        alt="Search Icon"
+                        style={{ width: '24px', height: '24px' }} // Adjust size as necessary
+                      />
+                    </InputAdornment>
+                  ),
+                  style: {
+                    borderRadius: '12px',
+                    backgroundColor: '#F5F0E5',
+                    color: '#A1824A',
+                    height: '40px',
+                    padding: '8px 16px',
+                    font: '400 16px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif',
+                    border: 'none',
+                  },
+                }}
+                sx={{
+                  width: '100%',
+                  flex: 1,
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#A1824A', // Default border color
+                    },
+                    '&:hover fieldset': {
+                      borderColor: '#A1824A', // Border color on hover
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#A1824A', // Border color when focused
+                    },
+                  },
+                }} // Ensure it fills the container
+              />
+              <IconButton type="submit" aria-label="search" style={{ backgroundColor: 'transparent', padding: '10px' }}>
+                {/* Optional: You can keep the button for additional functionality */}
+              </IconButton>
+            </form>
+          </div>
+    </section>
       </Box>
       <Box className="posts-list">
         {(searchQuery.trim() === '' ? posts : filteredPosts).map((post, index) => (
-          <Box key={post._id} className={`post-item post-${index}`} sx={{ border: '1px solid #ccc', padding: '20px', marginBottom: '20px' }}>
-            <Typography variant="h4" className={`post-question post-${index}`} gutterBottom>
+          <Box key={post._id} className={`post-item post-${index}`} sx={{ border: '1px solid #ccc', padding: '20px', marginBottom: '20px', borderRadius: '8px', backgroundColor: '#fff' }}>
+            <Typography variant="h4" className={`post-question post-${index}`} gutterBottom color="text.primary">
               {post.question}
             </Typography>
             <Typography className={`post-description post-${index}`} gutterBottom>
@@ -139,24 +253,30 @@ function ViewPosts() {
               Vote Count: {post.voteCount}
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-              <IconButton >
-                <HandleVote postId={post._id} type="up" />
+              <IconButton   >
+                <HandleVote postId={post._id} type="up"  />
               </IconButton>
               <IconButton>
                 <HandleVote postId={post._id} type="down" />
               </IconButton>
-              <Button
-                variant="contained"
-                className={`action-button action-edit-${index}`}
-                onClick={() => handleEditPost(post._id)}
-                sx={{ marginLeft: '7px' }}
-              >
-                Edit
+            
+              <Button onClick={() => handleAddReply(post._id)} sx={{ marginLeft: '10px' , color: '#A1824A' }} >
+                Reply
               </Button>
-              <DeletePost postId={post._id} />
-              <Button onClick={() => handleAddReply(post._id)} sx={{ marginLeft: '-10px' }}>
-                <AddComment /> Add Reply
+              <Button onClick={handleMenuClick} sx={{ color: '#A1824A' }}>
+                  <MoreVertIcon />
               </Button>
+
+              <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={() => handleEditPost(post._id)}>Edit</MenuItem>
+        <MenuItem onClick={() => {handleDelete(post._id); handleClose();}}>Delete</MenuItem>
+      </Menu>
+
+              
             </Box>
             <Typography variant="h5" className={`post-replies-header post-${index}`} gutterBottom>
               Replies:
@@ -172,17 +292,18 @@ function ViewPosts() {
                       </ListItemText>
                     </div>
                   )}
-                  <ListItemText className={`reply-vote-count reply-${replyIndex}`} style={{ width: '100px', textAlign: 'right', marginLeft: 'auto', paddingRight: '300px'  }}>
+                  <ListItemText className={`reply-vote-count reply-${replyIndex}`} style={{ width: '100px', textAlign: 'right', marginLeft: 'auto' }}>
                     Vote Count: {reply.voteCount}
                   </ListItemText>
+                  
                   <DeleteReply replyId={reply._id} />
-                  <Button className={`action-edit-reply action-edit-reply-${replyIndex}`} onClick={() => handleEditReply(reply._id)}>Edit Reply</Button>
+                  <Button className={`action-edit-reply action-edit-reply-${replyIndex}`} sx={{ color: '#A1824A ' }} onClick={() => handleEditReply(reply._id)}>Edit Reply</Button>
                   {editReplyId === reply._id && <EditReply replyId={reply._id} />}
-                  <IconButton className={`action-vote-up action-vote-up-${replyIndex}`} onClick={() => handleVoteReply(reply._id, 'upvote')}>
-                    <ArrowDropUp />
+                  <IconButton className={`action-vote-up action-vote-up-${replyIndex}`} sx={{ color: '#A1824A ' }} onClick={() => handleVoteReply(reply._id, 'upvote')}>
+                     <ThumbUpOutlined/>
                   </IconButton>
-                  <IconButton className={`action-vote-down action-vote-down-${replyIndex}`} onClick={() => handleVoteReply(reply._id, 'downvote')}>
-                    <ArrowDropDown />
+                  <IconButton className={`action-vote-down action-vote-down-${replyIndex}`} sx={{ color: '#A1824A ' }} onClick={() => handleVoteReply(reply._id, 'downvote')}>
+                    <ThumbDownOffAltOutlined />
                   </IconButton>
                 </ListItem>
               ))}
