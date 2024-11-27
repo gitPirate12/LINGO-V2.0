@@ -3,21 +3,19 @@
 LINGO TRANSLATE utilizes the MERN stack (MongoDB, Express.js, React.js, Node.js) to create a comprehensive translation webapp. Here's an overview of its key features:
 
 ## Translator App
-LINGO TRANSLATE serves as a translator application from English to Sinhala. It considers cultural context, ensuring accurate and relevant translations. For example, words like "orange" may have nuanced meanings based on context, which this app accounts for.
-
+LINGO TRANSLATE serves as a translator application from English to Sinhala. 
 ## Forum
-The project includes a forum for users to post questions and receive responses, fostering collaboration and knowledge sharing within the IT community.
+The project includes a forum for users to post questions and receive responses.
 
 ## Emoji Translator
-LINGO TRANSLATE features an emoji translator, bridging the gap between textual and visual expressions, enhancing communication.
+LINGO TRANSLATE features a basic single emoji translator.
 
 ## Authentication and Profile Management
-Proper authentication mechanisms are in place for secure user access. Users can create accounts, log in securely, and manage profiles, fostering a sense of community within the platform.
+Proper authentication mechanisms are in place for secure user access. Users can create accounts, log in securely, and manage profiles.
 
 ## Voice Recognition Translation
-The app supports voice recognition translation, allowing users to input voice commands or text and receive real-time translations, enhancing accessibility.
+The app supports voice recognition translation, allowing users to input voice commands or text and receive real-time translations.
 
-LINGO TRANSLATE aims to streamline language translation, facilitate community collaboration, and provide a seamless user experience in the IT domain.
 
 ## Running the Project
 
@@ -63,11 +61,3 @@ After installing the necessary packages, you can run the project with the follow
     ```
 
 By default, the server runs on port 3040 and the client runs on port 3000. Ensure that MongoDB is running on your system.
-
-## Testing
-
-### Running Tests
-To run tests for this project, use the following command:
-
-```bash
-npm test
